@@ -24,3 +24,30 @@ void inicializarStack(Stack* stack) {
 int estaVacia(Stack* stack) {
     return stack->top == NULL;
 }
+
+// agrega un elemento a la pila
+void push(Stack* stack, int dato) {
+    Nodo* nuevoNodo = crearNodo(dato);
+    if (stack->top != NULL) {
+        stack->top->siguiente = nuevoNodo;
+        nuevoNodo->anterior = stack->top;
+    }
+    stack->top = nuevoNodo;
+    printf("%d ha sido agregado al stack\n", dato);
+}
+
+// elimina y devuelve el elemento en la parte superior de la pila
+int pop(Stack* stack) {
+    if (estaVacia(stack)) {
+        printf("stack vacio, no se puede hacer pop\n");
+        exit(EXIT_FAILURE);
+    }
+    Nodo* nodoTemp = stack->top;
+    int dato = nodoTemp->dato;
+    stack->top = nodoTemp->anterior;
+    if (stack->top != NULL) {
+        stack->top->siguiente = NULL;
+    }
+    free(nodoTemp);
+    return dato;
+}
