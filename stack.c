@@ -51,3 +51,32 @@ int pop(Stack* stack) {
     free(nodoTemp);
     return dato;
 }
+
+// devuelve elemento en la parte superior de la pila sin eliminarlo
+int top(Stack* stack) {
+    if (estaVacia(stack)) {
+        printf("stack esta vacio\n");
+        exit(EXIT_FAILURE);
+    }
+    return stack->top->dato;
+}
+
+// muestra elementos de la pila
+void printStack(Stack* stack) {
+    Nodo* actual = stack->top;
+    printf("Contenido del stack: ");
+    while (actual != NULL) {
+        printf("%d ", actual->dato);
+        actual = actual->anterior;
+    }
+    printf("\n");
+}
+
+// libera toda la memoria asignada para la pila
+void liberarStack(Stack* stack) {
+    while (!estaVacia(stack)) {
+        printStack(stack);
+        int dato = pop(stack);
+        printf("Elemento desapilado: %d \n", dato);
+    }
+}
